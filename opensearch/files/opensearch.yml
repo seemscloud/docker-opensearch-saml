@@ -7,16 +7,21 @@ plugins.security.ssl.transport.pemtrustedcas_filepath: ca.crt.pem
 plugins.security.ssl.transport.enforce_hostname_verification: false
 
 # Access to Rest API, access API via http://0:9200
-plugins.security.ssl.http.enabled: false
+plugins.security.ssl.http.enabled: true
 plugins.security.ssl.http.pemcert_filepath: node.crt.pem
 plugins.security.ssl.http.pemkey_filepath: node.key.pem
 plugins.security.ssl.http.pemtrustedcas_filepath: ca.crt.pem
+
+# Admin certificates
 plugins.security.authcz.admin_dn:
   - CN=admin,OU=Root,O=Seems Cloud,L=Warsaw,ST=Mazovia,C=US
 
 # Allowed
 plugins.security.nodes_dn:
   - '*'
+
+# Disallow demo certificates
+plugins.security.allow_unsafe_democertificates: false
 
 # Initialize '.opendistro_security' index
 plugins.security.allow_default_init_securityindex: true
