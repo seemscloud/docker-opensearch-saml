@@ -1,0 +1,136 @@
+version: '3.9'
+
+services:
+  certificates:
+    container_name: certificates
+    hostname: certificates
+    build:
+      context: ./certificates
+    environment:
+      CERT_TYPES: "admin node"
+      CERT_NAMES: "opensearch-data01 opensearch-data02 opensearch-master01 opensearch-master02 opensearch-master03"
+    volumes:
+      - certificates-data:/app/data:rw
+  opensearch-data01:
+    container_name: opensearch-data01
+    hostname: opensearch-data01
+    environment:
+      - cluster.name=observability
+      - node.name=opensearch-data01
+      - node.roles=data
+      - discovery.seed_hosts=opensearch-master01,opensearch-master02,opensearch-master03
+      - cluster.initial_master_nodes=opensearch-master01,opensearch-master02,opensearch-master03
+      - bootstrap.memory_lock=true
+      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
+    volumes:
+      - ./opensearch/files/opensearch.yml:/app/config/opensearch.yml
+      - certificates-data:/certs:ro
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    build:
+      context: ./opensearch
+      args:
+        - APP_VERSION=1.2.4
+    depends_on:
+      - certificates
+  opensearch-data02:
+    container_name: opensearch-data02
+    hostname: opensearch-data02
+    environment:
+      - cluster.name=observability
+      - node.name=opensearch-data02
+      - node.roles=data
+      - discovery.seed_hosts=opensearch-master01,opensearch-master02,opensearch-master03
+      - cluster.initial_master_nodes=opensearch-master01,opensearch-master02,opensearch-master03
+      - bootstrap.memory_lock=true
+      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
+    volumes:
+      - ./opensearch/files/opensearch.yml:/app/config/opensearch.yml
+      - certificates-data:/certs:ro
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    build:
+      context: ./opensearch
+      args:
+        - APP_VERSION=1.2.4
+    depends_on:
+      - certificates
+  opensearch-master01:
+    container_name: opensearch-master01
+    hostname: opensearch-master01
+    environment:
+      - cluster.name=observability
+      - node.name=opensearch-master01
+      - node.roles=master
+      - discovery.seed_hosts=opensearch-master01,opensearch-master02,opensearch-master03
+      - cluster.initial_master_nodes=opensearch-master01,opensearch-master02,opensearch-master03
+      - bootstrap.memory_lock=true
+      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
+    volumes:
+      - ./opensearch/files/opensearch.yml:/app/config/opensearch.yml
+      - certificates-data:/certs:ro
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    build:
+      context: ./opensearch
+      args:
+        - APP_VERSION=1.2.4
+    depends_on:
+      - certificates
+  opensearch-master02:
+    container_name: opensearch-master02
+    hostname: opensearch-master02
+    environment:
+      - cluster.name=observability
+      - node.name=opensearch-master02
+      - node.roles=master
+      - discovery.seed_hosts=opensearch-master01,opensearch-master02,opensearch-master03
+      - cluster.initial_master_nodes=opensearch-master01,opensearch-master02,opensearch-master03
+      - bootstrap.memory_lock=true
+      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
+    volumes:
+      - ./opensearch/files/opensearch.yml:/app/config/opensearch.yml
+      - certificates-data:/certs:ro
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    build:
+      context: ./opensearch
+      args:
+        - APP_VERSION=1.2.4
+    depends_on:
+      - certificates
+  opensearch-master03:
+    container_name: opensearch-master03
+    hostname: opensearch-master03
+    environment:
+      - cluster.name=observability
+      - node.name=opensearch-master03
+      - node.roles=master
+      - discovery.seed_hosts=opensearch-master01,opensearch-master02,opensearch-master03
+      - cluster.initial_master_nodes=opensearch-master01,opensearch-master02,opensearch-master03
+      - bootstrap.memory_lock=true
+      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
+    volumes:
+      - ./opensearch/files/opensearch.yml:/app/config/opensearch.yml
+      - certificates-data:/certs:ro
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    build:
+      context: ./opensearch
+      args:
+        - APP_VERSION=1.2.4
+    depends_on:
+      - certificates
+
+volumes:
+  certificates-data:

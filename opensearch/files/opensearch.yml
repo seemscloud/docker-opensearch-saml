@@ -1,0 +1,37 @@
+network.host: 0.0.0.0
+
+# Transport via (required)
+plugins.security.ssl.transport.pemcert_filepath: node.crt.pem
+plugins.security.ssl.transport.pemkey_filepath: node.key.pem
+plugins.security.ssl.transport.pemtrustedcas_filepath: ca.crt.pem
+plugins.security.ssl.transport.enforce_hostname_verification: false
+
+# Access to Rest API
+plugins.security.ssl.http.enabled: true
+plugins.security.ssl.http.pemcert_filepath: node.crt.pem
+plugins.security.ssl.http.pemkey_filepath: node.key.pem
+plugins.security.ssl.http.pemtrustedcas_filepath: ca.crt.pem
+plugins.security.authcz.admin_dn:
+  - CN=admin,OU=Root,O=Seems Cloud,L=Warsaw,ST=Mazovia,C=US
+
+# Allowed
+plugins.security.nodes_dn:
+  - '*'
+
+# Create init .opendistro_security index
+plugins.security.allow_default_init_securityindex: true
+
+# Allow snapshot, restore
+plugins.security.enable_snapshot_restore_privilege: false
+plugins.security.check_snapshot_restore_write_privileges: false
+
+# Disk allocation decider
+cluster.routing.allocation.disk.threshold_enabled: false
+
+# Enabled Roles
+plugins.security.restapi.roles_enabled: [ "all_access", "security_rest_api_access" ]
+
+# Audit Log
+plugins.security.audit.type: internal_opensearch
+opendistro_security.audit.config.disabled_rest_categories: NONE
+opendistro_security.audit.config.disabled_transport_categories: NONE
