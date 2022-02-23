@@ -6,8 +6,8 @@ plugins.security.ssl.transport.pemkey_filepath: node.key.pem
 plugins.security.ssl.transport.pemtrustedcas_filepath: ca.crt.pem
 plugins.security.ssl.transport.enforce_hostname_verification: false
 
-# Access to Rest API
-plugins.security.ssl.http.enabled: true
+# Access to Rest API, access API via http://0:9200
+plugins.security.ssl.http.enabled: false
 plugins.security.ssl.http.pemcert_filepath: node.crt.pem
 plugins.security.ssl.http.pemkey_filepath: node.key.pem
 plugins.security.ssl.http.pemtrustedcas_filepath: ca.crt.pem
