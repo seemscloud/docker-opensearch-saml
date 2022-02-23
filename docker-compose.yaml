@@ -7,7 +7,6 @@ services:
     build:
       context: ./certificates
     environment:
-      CERT_TYPES: "admin node"
       CERT_NAMES: "opensearch-data01 opensearch-data02 opensearch-master01 opensearch-master02 opensearch-master03"
     volumes:
       - certificates-data:/app/data:rw
