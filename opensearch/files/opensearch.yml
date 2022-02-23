@@ -18,7 +18,7 @@ plugins.security.authcz.admin_dn:
 plugins.security.nodes_dn:
   - '*'
 
-# Create init .opendistro_security index
+# Initialize '.opendistro_security' index
 plugins.security.allow_default_init_securityindex: true
 
 # Allow snapshot, restore
