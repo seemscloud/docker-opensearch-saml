@@ -2,7 +2,7 @@
 
 /bin/bash copy-certs.sh
 
-export OPENSEARCH_HOME=/usr/share/opensearch
+export OPENSEARCH_HOME=/app
 export OPENSEARCH_JAVA_OPTS="-Dopensearch.cgroups.hierarchy.override=/ $OPENSEARCH_JAVA_OPTS"
 
 declare OPENSEARCH_PID
@@ -71,7 +71,6 @@ function runOpensearch {
     "$@" "${opensearch_opts[@]}" &
     OPENSEARCH_PID=$!
 
-    # performance-analyzer-agent-cli > $OPENSEARCH_HOME/logs/performance-analyzer.log 2>&1 &
     PA_PID=$!
 
     wait $OPENSEARCH_PID

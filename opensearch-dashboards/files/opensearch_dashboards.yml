@@ -1,0 +1,26 @@
+server.host: '0.0.0.0'
+
+# Connect to Opensearch
+opensearch.username: kibanaserver
+opensearch.password: kibanaserver
+opensearch.ssl.verificationMode: none
+opensearch.requestHeadersWhitelist: [ authorization, securitytenant ]
+
+# Permissions
+opensearch_security.multitenancy.enabled: true
+opensearch_security.multitenancy.tenants.preferred: [ Private,Global ]
+opensearch_security.readonly_mode.roles: [ kibana_read_only ]
+opensearch_security.cookie.secure: true
+
+# TLS
+server.ssl.enabled: true
+server.ssl.certificate: /app/config/dashboards.crt.pem
+server.ssl.key: /app/config/dashboards.key.pem
+opensearch.ssl.certificateAuthorities: [ /app/config/ca.crt.pem ]
+
+# SAML Authentication
+opensearch_security.auth.type: saml
+server.xsrf.whitelist: [ /_opendistro/_security/saml/acs/idpinitiated,/_opendistro/_security/saml/acs,/_opendistro/_security/saml/logout,/_plugins/_security/saml/acs/idpinitiated,/_plugins/_security/saml/acs,/_plugins/_security/saml/logout,/_plugins/_security/authinfo ]
+
+# Logging
+#logging.verbose: true

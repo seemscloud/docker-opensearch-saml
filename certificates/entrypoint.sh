@@ -19,4 +19,11 @@ openssl x509 -req -days 365 \
   -CA ./data/ca.crt.pem -CAkey ca.key.pem -CAcreateserial \
   -in node.csr.pem -out ./data/node.crt.pem
 
+openssl req -nodes -new -newkey rsa:2048 -subj "/C=US/ST=Mazovia/L=Warsaw/O=Seems Cloud/OU=Root/CN=dashboards" \
+  -keyout ./data/dashboards.key.pem -out dashboards.csr.pem
+
+openssl x509 -req -days 365 \
+  -CA ./data/ca.crt.pem -CAkey ca.key.pem -CAcreateserial \
+  -in dashboards.csr.pem -out ./data/dashboards.crt.pem
+
 rm -f ./data/ca.crt.srl

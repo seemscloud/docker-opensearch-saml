@@ -10,6 +10,18 @@ services:
       CERT_NAMES: "opensearch-data01 opensearch-data02 opensearch-master01 opensearch-master02 opensearch-master03"
     volumes:
       - certificates-data:/app/data:rw
+  opensearch-dashboards:
+    container_name: opensearch-dashboards
+    hostname: opensearch-dashboards
+    build:
+      context: ./opensearch-dashboards
+    ports:
+      - "5601:5601"
+    environment:
+      OPENSEARCH_HOSTS: '["https://opensearch-master01:9200","https://opensearch-master02:9200","https://opensearch-master03:9200"]'
+    volumes:
+      - ./opensearch-dashboards/files/opensearch_dashboards.yml:/app/config/opensearch_dashboards.yml:ro
+      - certificates-data:/certs:ro
   opensearch-data01:
     container_name: opensearch-data01
     hostname: opensearch-data01
@@ -21,9 +33,11 @@ services:
       - cluster.initial_master_nodes=opensearch-master01,opensearch-master02,opensearch-master03
       - bootstrap.memory_lock=true
       - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "DISABLE_INSTALL_DEMO_CONFIG=true"
     volumes:
       - ./opensearch/files/opensearch.yml:/app/config/opensearch.yml
       - certificates-data:/certs:ro
+      - ./opensearch/files/security-plugin/config.yml:/app/plugins/opensearch-security/securityconfig/config.yml:ro
     ulimits:
       memlock:
         soft: -1
@@ -45,9 +59,11 @@ services:
       - cluster.initial_master_nodes=opensearch-master01,opensearch-master02,opensearch-master03
       - bootstrap.memory_lock=true
       - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "DISABLE_INSTALL_DEMO_CONFIG=true"
     volumes:
       - ./opensearch/files/opensearch.yml:/app/config/opensearch.yml
       - certificates-data:/certs:ro
+      - ./opensearch/files/security-plugin/config.yml:/app/plugins/opensearch-security/securityconfig/config.yml:ro
     ulimits:
       memlock:
         soft: -1
@@ -69,9 +85,11 @@ services:
       - cluster.initial_master_nodes=opensearch-master01,opensearch-master02,opensearch-master03
       - bootstrap.memory_lock=true
       - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "DISABLE_INSTALL_DEMO_CONFIG=true"
     volumes:
       - ./opensearch/files/opensearch.yml:/app/config/opensearch.yml
       - certificates-data:/certs:ro
+      - ./opensearch/files/security-plugin/config.yml:/app/plugins/opensearch-security/securityconfig/config.yml:ro
     ulimits:
       memlock:
         soft: -1
@@ -93,9 +111,11 @@ services:
       - cluster.initial_master_nodes=opensearch-master01,opensearch-master02,opensearch-master03
       - bootstrap.memory_lock=true
       - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "DISABLE_INSTALL_DEMO_CONFIG=true"
     volumes:
       - ./opensearch/files/opensearch.yml:/app/config/opensearch.yml
       - certificates-data:/certs:ro
+      - ./opensearch/files/security-plugin/config.yml:/app/plugins/opensearch-security/securityconfig/config.yml:ro
     ulimits:
       memlock:
         soft: -1
@@ -117,9 +137,11 @@ services:
       - cluster.initial_master_nodes=opensearch-master01,opensearch-master02,opensearch-master03
       - bootstrap.memory_lock=true
       - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "DISABLE_INSTALL_DEMO_CONFIG=true"
     volumes:
       - ./opensearch/files/opensearch.yml:/app/config/opensearch.yml
       - certificates-data:/certs:ro
+      - ./opensearch/files/security-plugin/config.yml:/app/plugins/opensearch-security/securityconfig/config.yml:ro
     ulimits:
       memlock:
         soft: -1
