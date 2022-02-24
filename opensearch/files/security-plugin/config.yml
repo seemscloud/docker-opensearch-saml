@@ -7,32 +7,32 @@ config:
   dynamic:
     authc:
       basic_internal_auth_domain:
+        description: "Basic HTTP Authentication"
         http_enabled: true
         transport_enabled: true
-        order: 1
+        order: 0
         http_authenticator:
           type: basic
           challenge: false
         authentication_backend:
-          type: intern
+          type: internal
       saml_auth_domain:
+        description: "SAML Authentication"
         http_enabled: true
         transport_enabled: false
-        order: 0
+        order: 1
         http_authenticator:
           type: saml
           challenge: true
           config:
             idp:
-              enable_ssl: false
-              verify_hostnames: false
               metadata_url: https://seems.okta.com/app/exkhmvkssEzGVHwyu696/sso/saml/metadata
               entity_id: http://www.okta.com/exkhmvkssEzGVHwyu696
             sp:
               entity_id: opensearch-saml
               forceAuthn: true
             kibana_url: https://10.10.20.10:5601/
-            roles_key: Roles
-            exchange_key: 'asdamjeraonpiwetboniwtuonqweitbvqpweitmqowpecpqwecqpwijpo'
+            roles_key: Role
+            exchange_key: '626474c14922913662af5bc9246506beb8a8cc328c6844957247ddb5feb38932'
         authentication_backend:
           type: noop
