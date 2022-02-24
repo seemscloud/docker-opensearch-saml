@@ -32,7 +32,7 @@ config:
               entity_id: opensearch-saml
               forceAuthn: true
             kibana_url: https://10.10.20.10:5601/
-            roles_key: Role
+            roles_key: Roles
             exchange_key: '626474c14922913662af5bc9246506beb8a8cc328c6844957247ddb5feb38932'
         authentication_backend:
           type: noop
